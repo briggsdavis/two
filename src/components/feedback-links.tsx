@@ -41,7 +41,7 @@ export function FeedbackLinks({ className = "" }: { className?: string }) {
                 <span className="font-display text-xl tracking-tight">
                   {l.label}
                 </span>
-                <ArrowUpRight className="size-4 shrink-0 text-ink/50 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
+                <ArrowUpRight className="size-4 shrink-0 text-ink/50 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-ink" />
               </div>
               <p className="mt-3 text-sm text-ink/70">{l.description}</p>
             </a>

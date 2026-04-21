@@ -8,7 +8,6 @@ import { useMemo, useState } from "react"
 import { formatMoney } from "~/lib/money"
 import type { ProductListItem } from "~/lib/shopify"
 
-
 export function CardsGrid({ products }: { products: ProductListItem[] }) {
   const [range, setRange] = useState<[number, number]>([1, 10])
   const [query, setQuery] = useState("")
@@ -29,59 +28,62 @@ export function CardsGrid({ products }: { products: ProductListItem[] }) {
   return (
     <>
       <div className="mb-10 grid grid-cols-2 items-end gap-3 sm:grid-cols-3 lg:grid-cols-4">
-      <div>
-        <label htmlFor="card-search" className="mb-2 block text-sm font-medium">
-          Search
-        </label>
-        <div className="relative flex items-center border-b border-ink/20 focus-within:border-ink">
-          <input
-            id="card-search"
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Charizard"
-            className="w-full appearance-none bg-transparent pb-1 pr-6 text-sm placeholder:text-ink/40 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
-          />
-          {query && (
-            <button
-              type="button"
-              onClick={() => setQuery("")}
-              aria-label="Clear search"
-              className="absolute right-0 bottom-1 text-ink/50 hover:text-ink"
-            >
-              <X className="size-4" />
-            </button>
-          )}
+        <div>
+          <label
+            htmlFor="card-search"
+            className="mb-2 block text-sm font-medium"
+          >
+            Search
+          </label>
+          <div className="relative flex items-center border-b border-ink/20 focus-within:border-ink">
+            <input
+              id="card-search"
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Charizard"
+              className="w-full appearance-none bg-transparent pr-6 pb-1 text-sm placeholder:text-ink/40 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label="Clear search"
+                className="absolute right-0 bottom-1 text-ink/50 hover:text-ink"
+              >
+                <X className="size-4" />
+              </button>
+            )}
+          </div>
         </div>
-      </div>
-      <div>
-        <div className="mb-2 text-sm font-medium">Grade</div>
-        <Slider.Root
-          value={range}
-          onValueChange={(v) => setRange(v as [number, number])}
-          min={1}
-          max={10}
-          step={1}
-          minStepsBetweenValues={0}
-          thumbAlignment="edge"
-        >
-          <Slider.Control className="flex h-5 w-full items-center">
-            <Slider.Track className="relative h-1 w-full rounded-full bg-ink/15">
-              <Slider.Indicator className="absolute h-full rounded-full bg-ink" />
-              <Slider.Thumb className="relative block size-4 cursor-grab rounded-full bg-ink outline-none focus-visible:ring-2 focus-visible:ring-ink/40">
-                <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 text-xs tabular-nums text-ink/70">
-                  {range[0]}
-                </span>
-              </Slider.Thumb>
-              <Slider.Thumb className="relative block size-4 cursor-grab rounded-full bg-ink outline-none focus-visible:ring-2 focus-visible:ring-ink/40">
-                <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 text-xs tabular-nums text-ink/70">
-                  {range[1]}
-                </span>
-              </Slider.Thumb>
-            </Slider.Track>
-          </Slider.Control>
-        </Slider.Root>
-      </div>
+        <div>
+          <div className="mb-2 text-sm font-medium">Grade</div>
+          <Slider.Root
+            value={range}
+            onValueChange={(v) => setRange(v as [number, number])}
+            min={1}
+            max={10}
+            step={1}
+            minStepsBetweenValues={0}
+            thumbAlignment="edge"
+          >
+            <Slider.Control className="flex h-5 w-full items-center">
+              <Slider.Track className="relative h-1 w-full rounded-full bg-ink/15">
+                <Slider.Indicator className="absolute h-full rounded-full bg-ink" />
+                <Slider.Thumb className="relative block size-4 cursor-grab rounded-full bg-ink outline-none focus-visible:ring-2 focus-visible:ring-ink/40">
+                  <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 text-xs text-ink/70 tabular-nums">
+                    {range[0]}
+                  </span>
+                </Slider.Thumb>
+                <Slider.Thumb className="relative block size-4 cursor-grab rounded-full bg-ink outline-none focus-visible:ring-2 focus-visible:ring-ink/40">
+                  <span className="absolute top-full left-1/2 mt-1 -translate-x-1/2 text-xs text-ink/70 tabular-nums">
+                    {range[1]}
+                  </span>
+                </Slider.Thumb>
+              </Slider.Track>
+            </Slider.Control>
+          </Slider.Root>
+        </div>
       </div>
 
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">

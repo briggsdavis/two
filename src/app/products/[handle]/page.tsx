@@ -1,5 +1,5 @@
-import type { Metadata } from "next"
 import { ArrowLeft } from "lucide-react"
+import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { AddToCartButton } from "~/components/add-to-cart-button"
@@ -26,14 +26,17 @@ export async function generateMetadata({
 
   return {
     title: product.title,
-    description: description || `${product.title} — available at Two O'Clock Cards.`,
+    description:
+      description || `${product.title} — available at Two O'Clock Cards.`,
     alternates: { canonical: url },
     openGraph: {
       type: "website",
       title: product.title,
       description,
       url,
-      images: image ? [{ url: image, alt: product.featuredImage?.altText ?? product.title }] : undefined,
+      images: image
+        ? [{ url: image, alt: product.featuredImage?.altText ?? product.title }]
+        : undefined,
     },
     twitter: {
       card: "summary_large_image",

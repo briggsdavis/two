@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidateTag } from "next/cache"
+import { updateTag } from "next/cache"
 import { cookies } from "next/headers"
 import {
   cartCreate,
@@ -52,7 +52,7 @@ export async function addToCart(variantId: string, quantity = 1) {
     cart = await cartCreate(variantId, quantity)
     await setCartCookie(cart.id)
   }
-  revalidateTag("cart")
+  updateTag("cart")
   return cart
 }
 
@@ -61,7 +61,7 @@ export async function updateLine(lineId: string, quantity: number) {
   const id = store.get(COOKIE)?.value
   if (!id) return null
   const cart = await cartLinesUpdate(id, lineId, quantity)
-  revalidateTag("cart")
+  updateTag("cart")
   return cart
 }
 
@@ -70,6 +70,6 @@ export async function removeLine(lineId: string) {
   const id = store.get(COOKIE)?.value
   if (!id) return null
   const cart = await cartLinesRemove(id, [lineId])
-  revalidateTag("cart")
+  updateTag("cart")
   return cart
 }

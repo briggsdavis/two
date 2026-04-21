@@ -13,8 +13,7 @@ export default async function Home() {
         <h1 className="font-display text-6xl leading-[1.05] tracking-tight md:text-8xl">
           A small, deliberate
           <br />
-          collection of cards{" "}
-          <span className="italic">worth holding.</span>
+          collection of cards <span className="italic">worth holding.</span>
         </h1>
         <div className="mt-10 flex flex-wrap items-center gap-6">
           <Link
@@ -104,7 +103,10 @@ export default async function Home() {
           </div>
           <span className="mt-8 inline-flex items-center gap-2 text-sm text-ink underline-offset-4 group-hover:underline">
             Read the story
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+            <ArrowRight
+              className="size-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden
+            />
           </span>
         </Link>
 
@@ -117,8 +119,7 @@ export default async function Home() {
               Contact
             </p>
             <h3 className="font-display text-3xl tracking-tight">
-              Looking for something{" "}
-              <span className="italic">specific?</span>
+              Looking for something <span className="italic">specific?</span>
             </h3>
             <p className="mt-4 max-w-md text-ink/70">
               Want-lists, consignments, or a card you&apos;d like us to hunt
@@ -127,7 +128,10 @@ export default async function Home() {
           </div>
           <span className="mt-8 inline-flex items-center gap-2 text-sm text-ink underline-offset-4 group-hover:underline">
             Get in touch
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+            <ArrowRight
+              className="size-4 transition-transform group-hover:translate-x-0.5"
+              aria-hidden
+            />
           </span>
         </Link>
       </section>

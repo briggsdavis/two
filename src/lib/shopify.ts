@@ -1,5 +1,4 @@
 import "server-only"
-
 import { createStorefrontApiClient } from "@shopify/storefront-api-client"
 import type { Money } from "~/lib/money"
 
@@ -253,4 +252,3 @@ export async function cartLinesRemove(cartId: string, lineIds: string[]) {
   if (errors) throw new Error(errors.message)
   return data!.cartLinesRemove.cart
 }
-

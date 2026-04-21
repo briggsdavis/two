@@ -3,9 +3,7 @@ import Link from "next/link"
 export default function NotFound() {
   return (
     <main className="mx-auto max-w-3xl px-6 py-24 text-center">
-      <p className="mb-6 text-xs tracking-[0.2em] text-ink/60 uppercase">
-        404
-      </p>
+      <p className="mb-6 text-xs tracking-[0.2em] text-ink/60 uppercase">404</p>
       <h1 className="font-display text-5xl leading-[1.05] tracking-tight md:text-6xl">
         We couldn&apos;t find <span className="italic">that one.</span>
       </h1>
