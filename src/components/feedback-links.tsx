@@ -2,14 +2,14 @@ import { ArrowUpRight } from "lucide-react"
 
 const feedbackLinks = [
   {
-    label: "All-time feedback",
-    description: "Every review left for the shop on eBay.",
-    href: "https://www.ebay.com/fdbk/feedback_profile/REPLACE_ME",
+    label: "Auction Houses Direct",
+    description: "Feedback from our main eBay store.",
+    href: "https://www.ebay.com/str/auctionhousesdirect?_tab=feedback",
   },
   {
-    label: "Recent feedback",
-    description: "What buyers have said over the last month.",
-    href: "https://www.ebay.com/fdbk/feedback_profile/REPLACE_ME?filter=feedback_page%3ARECEIVED_AS_SELLER",
+    label: "Second store",
+    description: "Feedback from our second eBay store.",
+    href: "https://www.ebay.com/str/auctionhousesdirect?_tab=feedback",
   },
 ]
 
@@ -30,7 +30,7 @@ export function FeedbackLinks({ className = "" }: { className?: string }) {
       </p>
       <ul className="grid gap-3 sm:grid-cols-2">
         {feedbackLinks.map((l) => (
-          <li key={l.href}>
+          <li key={l.label}>
             <a
               href={l.href}
               target="_blank"

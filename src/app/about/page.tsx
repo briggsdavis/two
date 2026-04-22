@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { FeedbackLinks } from "~/components/feedback-links"
+import { FeedbackStats } from "~/components/feedback-stats"
+import { Testimonials } from "~/components/testimonials"
 
 export const metadata: Metadata = {
   title: "About",
@@ -37,6 +39,10 @@ export default function AboutPage() {
           The name stuck.
         </p>
       </div>
+
+      <FeedbackStats className="mt-20" />
+
+      <Testimonials className="mt-20" />
 
       <FeedbackLinks className="mt-20" />
 
