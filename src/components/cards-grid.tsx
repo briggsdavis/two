@@ -4,30 +4,102 @@ import { Slider } from "@base-ui-components/react/slider"
 import { X } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { fetchProductsPage } from "~/app/cards/actions"
 import { formatMoney } from "~/lib/money"
 import type { ProductListItem } from "~/lib/shopify"
 
-export function CardsGrid({ products }: { products: ProductListItem[] }) {
+export function CardsGrid({
+  initialProducts,
+  initialEndCursor,
+  initialHasNextPage,
+}: {
+  initialProducts: ProductListItem[]
+  initialEndCursor: string | null
+  initialHasNextPage: boolean
+}) {
   const [range, setRange] = useState<[number, number]>([1, 10])
   const [query, setQuery] = useState("")
+  const [debouncedQuery, setDebouncedQuery] = useState("")
+  const [products, setProducts] = useState(initialProducts)
+  const [cursor, setCursor] = useState(initialEndCursor)
+  const [hasNextPage, setHasNextPage] = useState(initialHasNextPage)
+  const [loading, setLoading] = useState(false)
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
+  const loadingRef = useRef(false)
+  const generationRef = useRef(0)
+  const isInitialRef = useRef(true)
 
-  const filtered = useMemo(() => {
-    const [min, max] = range
-    const q = query.trim().toLowerCase()
-    return products.filter((p) => {
-      if (!p.grade?.value) return false
-      const g = parseFloat(p.grade.value)
-      if (Number.isNaN(g)) return false
-      if (g < min || g > max) return false
-      if (q && !p.title.toLowerCase().includes(q)) return false
-      return true
-    })
-  }, [products, range, query])
+  useEffect(() => {
+    const effective = query.trim().length >= 2 ? query : ""
+    const id = setTimeout(() => setDebouncedQuery(effective), 250)
+    return () => clearTimeout(id)
+  }, [query])
+
+  const filters = useMemo(
+    () => ({
+      query: debouncedQuery,
+      gradeMin: range[0],
+      gradeMax: range[1],
+    }),
+    [debouncedQuery, range],
+  )
+
+  useEffect(() => {
+    if (isInitialRef.current) {
+      isInitialRef.current = false
+      return
+    }
+    const gen = ++generationRef.current
+    loadingRef.current = true
+    setLoading(true)
+    fetchProductsPage(filters)
+      .then((page) => {
+        if (gen !== generationRef.current) return
+        setProducts(page.nodes)
+        setCursor(page.pageInfo.endCursor)
+        setHasNextPage(page.pageInfo.hasNextPage)
+      })
+      .finally(() => {
+        if (gen === generationRef.current) {
+          loadingRef.current = false
+          setLoading(false)
+        }
+      })
+  }, [filters])
+
+  useEffect(() => {
+    const el = sentinelRef.current
+    if (!el || !hasNextPage) return
+    const observer = new IntersectionObserver(
+      async (entries) => {
+        if (!entries[0]?.isIntersecting) return
+        if (loadingRef.current || !cursor) return
+        const gen = generationRef.current
+        loadingRef.current = true
+        setLoading(true)
+        try {
+          const page = await fetchProductsPage(filters, cursor)
+          if (gen !== generationRef.current) return
+          setProducts((prev) => [...prev, ...page.nodes])
+          setCursor(page.pageInfo.endCursor)
+          setHasNextPage(page.pageInfo.hasNextPage)
+        } finally {
+          if (gen === generationRef.current) {
+            loadingRef.current = false
+            setLoading(false)
+          }
+        }
+      },
+      { rootMargin: "400px" },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [cursor, hasNextPage, filters])
 
   return (
     <>
-      <div className="mb-10 grid grid-cols-2 items-end gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="mb-10 grid grid-cols-1 items-end gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <div>
           <label
             htmlFor="card-search"
@@ -55,6 +127,9 @@ export function CardsGrid({ products }: { products: ProductListItem[] }) {
               </button>
             )}
           </div>
+          {query.trim().length === 1 && (
+            <p className="mt-1 text-xs text-ink/50">Keep typing…</p>
+          )}
         </div>
         <div>
           <div className="mb-2 text-sm font-medium">Grade</div>
@@ -87,7 +162,7 @@ export function CardsGrid({ products }: { products: ProductListItem[] }) {
       </div>
 
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-        {filtered.map((p) => (
+        {products.map((p) => (
           <li key={p.id}>
             <Link href={`/products/${p.handle}`} className="block">
               <div className="relative aspect-square w-full rounded-lg bg-ink/5">
@@ -121,6 +196,17 @@ export function CardsGrid({ products }: { products: ProductListItem[] }) {
           </li>
         ))}
       </ul>
+      {!loading && products.length === 0 && (
+        <p className="py-12 text-center text-sm text-ink/50">No cards match.</p>
+      )}
+      {hasNextPage && (
+        <div
+          ref={sentinelRef}
+          className="mt-8 py-8 text-center text-sm text-ink/50"
+        >
+          {loading ? "Loading…" : ""}
+        </div>
+      )}
     </>
   )
 }

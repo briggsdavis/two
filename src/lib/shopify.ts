@@ -2,8 +2,6 @@ import "server-only"
 import { createStorefrontApiClient } from "@shopify/storefront-api-client"
 import type { Money } from "~/lib/money"
 
-export type { Money } from "~/lib/money"
-
 const domain = process.env.SHOPIFY_STORE_DOMAIN
 const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN
 
@@ -13,7 +11,7 @@ if (!domain || !token) {
   )
 }
 
-export const shopify = createStorefrontApiClient({
+const shopify = createStorefrontApiClient({
   storeDomain: domain,
   apiVersion: "2026-04",
   publicAccessToken: token,
@@ -30,7 +28,7 @@ export type ProductListItem = {
   gradingCompany: { value: string } | null
 }
 
-export type ProductDetail = ProductListItem & {
+type ProductDetail = ProductListItem & {
   descriptionHtml: string
   images: { nodes: { url: string; altText: string | null }[] }
   variants: {
@@ -46,19 +44,36 @@ export type ProductDetail = ProductListItem & {
   gradingCompany: { value: string } | null
 }
 
-const PRODUCT_LIST_QUERY = `#graphql
-  query Products($first: Int!) {
-    products(first: $first) {
-      nodes {
-        id
-        handle
-        title
-        availableForSale
-        featuredImage { url altText }
-        priceRange { minVariantPrice { amount currencyCode } }
-        grade: metafield(namespace: "custom", key: "grade") { value }
-        gradingCompany: metafield(namespace: "custom", key: "grading_company") { value }
-      }
+const PRODUCT_FIELDS = `#graphql
+  fragment ProductFields on Product {
+    id
+    handle
+    title
+    availableForSale
+    featuredImage { url altText }
+    priceRange { minVariantPrice { amount currencyCode } }
+    grade: metafield(namespace: "custom", key: "grade") { value }
+    gradingCompany: metafield(namespace: "custom", key: "grading_company") { value }
+  }
+`
+
+const PRODUCT_SEARCH_QUERY = `#graphql
+  ${PRODUCT_FIELDS}
+  query Search(
+    $first: Int!
+    $after: String
+    $query: String!
+    $productFilters: [ProductFilter!]
+  ) {
+    search(
+      first: $first
+      after: $after
+      query: $query
+      types: [PRODUCT]
+      productFilters: $productFilters
+    ) {
+      nodes { ... on Product { ...ProductFields } }
+      pageInfo { hasNextPage endCursor }
     }
   }
 `
@@ -89,12 +104,68 @@ const PRODUCT_DETAIL_QUERY = `#graphql
   }
 `
 
+type ProductPage = {
+  nodes: ProductListItem[]
+  pageInfo: { hasNextPage: boolean; endCursor: string | null }
+}
+
+export type ProductFilters = {
+  query?: string
+  gradeMin?: number
+  gradeMax?: number
+}
+
 export async function getProducts(first = 24): Promise<ProductListItem[]> {
+  const page = await getProductsPage({ first })
+  return page.nodes
+}
+
+type MetafieldFilter = {
+  productMetafield: { namespace: string; key: string; value: string }
+}
+
+export async function getProductsPage({
+  first = 24,
+  after,
+  query,
+  gradeMin = 1,
+  gradeMax = 10,
+}: {
+  first?: number
+  after?: string
+} & ProductFilters = {}): Promise<ProductPage> {
+  const q = query?.trim().replace(/[()"*~\\]/g, "") || "*"
+
+  const productFilters: MetafieldFilter[] = []
+  if (gradeMin > 1 || gradeMax < 10) {
+    for (let g = gradeMin; g <= gradeMax; g++) {
+      productFilters.push({
+        productMetafield: {
+          namespace: "custom",
+          key: "grade",
+          value: String(g),
+        },
+      })
+    }
+  }
+
   const { data, errors } = await shopify.request<{
-    products: { nodes: ProductListItem[] }
-  }>(PRODUCT_LIST_QUERY, { variables: { first } })
+    search: ProductPage
+  }>(PRODUCT_SEARCH_QUERY, {
+    variables: {
+      first,
+      after,
+      query: q,
+      productFilters: productFilters.length ? productFilters : undefined,
+    },
+  })
   if (errors) throw new Error(errors.message)
-  return data?.products.nodes ?? []
+  return (
+    data?.search ?? {
+      nodes: [],
+      pageInfo: { hasNextPage: false, endCursor: null },
+    }
+  )
 }
 
 export async function getProduct(
@@ -107,7 +178,7 @@ export async function getProduct(
   return data?.product ?? null
 }
 
-export type CartLine = {
+type CartLine = {
   id: string
   quantity: number
   cost: { totalAmount: Money }
