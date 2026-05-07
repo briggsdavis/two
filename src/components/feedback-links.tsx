@@ -7,9 +7,9 @@ const feedbackLinks = [
     href: "https://www.ebay.com/str/auctionhousesdirect?_tab=feedback",
   },
   {
-    label: "Second store",
+    label: "Monty Shop 26",
     description: "Feedback from our second eBay store.",
-    href: "https://www.ebay.com/str/auctionhousesdirect?_tab=feedback",
+    href: "https://www.ebay.com/usr/montyshop26?_tab=feedback",
   },
 ]
 

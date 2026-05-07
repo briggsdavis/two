@@ -103,7 +103,7 @@ export function CardsGrid({
         <div>
           <label
             htmlFor="card-search"
-            className="mb-2 block text-sm font-medium"
+            className="mb-2 block text-base font-medium"
           >
             Search
           </label>
@@ -132,7 +132,7 @@ export function CardsGrid({
           )}
         </div>
         <div>
-          <div className="mb-2 text-sm font-medium">Grade</div>
+          <div className="mb-2 text-base font-medium">Grade</div>
           <Slider.Root
             value={range}
             onValueChange={(v) => setRange(v as [number, number])}

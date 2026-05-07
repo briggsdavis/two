@@ -38,17 +38,17 @@ export function SiteNav() {
           aria-expanded={open}
           className="rounded-full p-1 hover:bg-ink/10 md:hidden"
         >
-          <Menu className="size-5" />
+          <Menu className="size-6" />
         </button>
 
         <Link
           href="/"
-          className="font-display text-xl tracking-tight italic md:justify-self-start"
+          className="font-display text-2xl tracking-tight italic md:justify-self-start"
         >
           Two O&apos;Clock Trading
         </Link>
 
-        <ul className="hidden items-center gap-8 justify-self-center text-sm md:flex">
+        <ul className="hidden items-center gap-8 justify-self-center text-base md:flex">
           {links.map((l) => (
             <li key={l.href}>
               <Link href={l.href}>{l.label}</Link>
@@ -89,7 +89,7 @@ export function SiteNav() {
             aria-label="Close menu"
             className="rounded-full p-1 hover:bg-ink/10"
           >
-            <X className="size-5" />
+            <X className="size-6" />
           </button>
         </div>
         <ul className="flex flex-col items-start px-6 py-6">

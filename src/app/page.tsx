@@ -10,10 +10,9 @@ export default async function Home() {
   return (
     <main>
       <section className="mx-auto max-w-6xl px-6 pt-24 pb-32">
-        <h1 className="font-display text-6xl leading-[1.05] tracking-tight md:text-8xl">
-          A small, deliberate
-          <br />
-          collection of cards <span className="italic">worth holding.</span>
+        <h1 className="font-display text-5xl leading-[1.05] tracking-tight md:text-7xl">
+          A 26-year-old family grading business, run by collectors,{" "}
+          <span className="italic">for collectors.</span>
         </h1>
         <div className="mt-10 flex flex-wrap items-center gap-6">
           <Link

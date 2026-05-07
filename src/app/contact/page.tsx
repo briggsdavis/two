@@ -4,7 +4,7 @@ import { FeedbackLinks } from "~/components/feedback-links"
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Questions, want-lists, consignments — get in touch with Two O'Clock Cards.",
+    "Questions, want-lists, consignments — get in touch with Two O'Clock Trading.",
   alternates: { canonical: "/contact" },
   openGraph: { title: "Contact", url: "/contact" },
 }

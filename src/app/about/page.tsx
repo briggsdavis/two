@@ -7,7 +7,7 @@ import { Testimonials } from "~/components/testimonials"
 export const metadata: Metadata = {
   title: "About",
   description:
-    "How Two O'Clock Cards sources, grades, and lists cards — one at a time, at the quiet hour.",
+    "How Two O'Clock Trading sources, grades, and lists cards — one at a time, at the quiet hour.",
   alternates: { canonical: "/about" },
   openGraph: { title: "About", url: "/about" },
 }
@@ -24,19 +24,20 @@ export default function AboutPage() {
 
       <div className="mt-12 space-y-6 text-lg leading-relaxed text-ink/80">
         <p>
-          Two O&apos;Clock Trading started as a side table at a card show and
-          has stayed roughly that size on purpose. We sell graded cards we like,
-          one at a time, and we&apos;d rather list ten good cards than a hundred
-          ordinary ones.
+          Two O&apos;Clock Trading started as an expansion of our eBay
+          business, which is 26 years old. This can be found under our antiques
+          account, <span className="italic">Dunkie</span>, where we sell our
+          own collectables from our passions, mainly antique tobacciana and
+          vintage jewelry.
         </p>
         <p>
-          Every card is photographed in natural light, described honestly, and
-          packed with the same care we&apos;d want as the buyer. If something
-          arrives and isn&apos;t right, we make it right.
+          It was called Two O&apos;Clock as it was the time when our baby son
+          napped and we could work on our business. We moved our business from
+          Texas to Ohio, where we are now based, and the name traveled with us.
         </p>
         <p>
-          Most days, we sit down to grade, list, and pack at two o&apos;clock.
-          The name stuck.
+          Over the years, our own passions have expanded into Pokémon cards,
+          and we buy and grade a lot of product now.
         </p>
       </div>
 

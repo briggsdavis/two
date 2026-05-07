@@ -14,7 +14,7 @@ export function CartButton() {
       aria-label={`Open cart (${count} items)`}
       className="relative p-1"
     >
-      <ShoppingBag className="size-5" />
+      <ShoppingBag className="size-6" />
       {count > 0 && (
         <span className="absolute -top-0.5 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-ink px-1 text-[10px] font-semibold text-cream">
           {count}

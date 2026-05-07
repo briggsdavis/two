@@ -134,7 +134,8 @@ export async function getProductsPage({
   first?: number
   after?: string
 } & ProductFilters = {}): Promise<ProductPage> {
-  const q = query?.trim().replace(/[()"*~\\]/g, "") || "*"
+  const term = query?.trim().replace(/[()"*~\\:]/g, "")
+  const q = term ? `title:${term}*` : "*"
 
   const productFilters: MetafieldFilter[] = []
   if (gradeMin > 1 || gradeMax < 10) {

@@ -27,7 +27,7 @@ export async function generateMetadata({
   return {
     title: product.title,
     description:
-      description || `${product.title} — available at Two O'Clock Cards.`,
+      description || `${product.title} — available at Two O'Clock Trading.`,
     alternates: { canonical: url },
     openGraph: {
       type: "website",
