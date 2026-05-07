@@ -24,11 +24,11 @@ export default function AboutPage() {
 
       <div className="mt-12 space-y-6 text-lg leading-relaxed text-ink/80">
         <p>
-          Two O&apos;Clock Trading started as an expansion of our eBay
-          business, which is 26 years old. This can be found under our antiques
-          account, <span className="italic">Dunkie</span>, where we sell our
-          own collectables from our passions, mainly antique tobacciana and
-          vintage jewelry.
+          Two O&apos;Clock Trading started as an expansion of our eBay business,
+          which is 26 years old. This can be found under our antiques account,{" "}
+          <span className="italic">Dunkie</span>, where we sell our own
+          collectables from our passions, mainly antique tobacciana and vintage
+          jewelry.
         </p>
         <p>
           It was called Two O&apos;Clock as it was the time when our baby son
@@ -36,8 +36,8 @@ export default function AboutPage() {
           Texas to Ohio, where we are now based, and the name traveled with us.
         </p>
         <p>
-          Over the years, our own passions have expanded into Pokémon cards,
-          and we buy and grade a lot of product now.
+          Over the years, our own passions have expanded into Pokémon cards, and
+          we buy and grade a lot of product now.
         </p>
       </div>
 
