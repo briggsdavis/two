@@ -7,7 +7,7 @@ import { SiteNav } from "~/components/site-nav"
 import { getCart } from "~/lib/cart"
 import "~/styles/styles.css"
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+const siteUrl = "https://twooclocktrading.com"
 const siteName = "Two O'Clock Trading"
 const siteDescription =
   "A small, deliberate collection of graded trading cards, sourced one at a time and listed only when they're worth our shelf space."
