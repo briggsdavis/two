@@ -138,7 +138,7 @@ export function CardsGrid({
             onValueChange={(v) => setRange(v as [number, number])}
             min={1}
             max={10}
-            step={1}
+            step={0.5}
             minStepsBetweenValues={0}
             thumbAlignment="edge"
           >

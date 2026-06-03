@@ -139,12 +139,12 @@ export async function getProductsPage({
 
   const productFilters: MetafieldFilter[] = []
   if (gradeMin > 1 || gradeMax < 10) {
-    for (let g = gradeMin; g <= gradeMax; g++) {
+    for (let g = gradeMin; g <= gradeMax; g += 0.5) {
       productFilters.push({
         productMetafield: {
           namespace: "custom",
           key: "grade",
-          value: String(g),
+          value: g.toFixed(1),
         },
       })
     }
