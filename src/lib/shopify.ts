@@ -64,6 +64,8 @@ const PRODUCT_SEARCH_QUERY = `#graphql
     $after: String
     $query: String!
     $productFilters: [ProductFilter!]
+    $sortKey: SearchSortKeys
+    $reverse: Boolean
   ) {
     search(
       first: $first
@@ -71,6 +73,8 @@ const PRODUCT_SEARCH_QUERY = `#graphql
       query: $query
       types: [PRODUCT]
       productFilters: $productFilters
+      sortKey: $sortKey
+      reverse: $reverse
     ) {
       nodes { ... on Product { ...ProductFields } }
       pageInfo { hasNextPage endCursor }
@@ -113,6 +117,7 @@ export type ProductFilters = {
   query?: string
   gradeMin?: number
   gradeMax?: number
+  sort?: "price-asc" | "price-desc"
 }
 
 export async function getProducts(first = 24): Promise<ProductListItem[]> {
@@ -130,6 +135,7 @@ export async function getProductsPage({
   query,
   gradeMin = 1,
   gradeMax = 10,
+  sort,
 }: {
   first?: number
   after?: string
@@ -158,6 +164,8 @@ export async function getProductsPage({
       after,
       query: q,
       productFilters: productFilters.length ? productFilters : undefined,
+      sortKey: sort?.startsWith("price-") ? "PRICE" : undefined,
+      reverse: sort === "price-desc",
     },
   })
   if (errors) throw new Error(errors.message)

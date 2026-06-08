@@ -19,6 +19,7 @@ export function CardsGrid({
   initialHasNextPage: boolean
 }) {
   const [range, setRange] = useState<[number, number]>([1, 10])
+  const [sort, setSort] = useState<"" | "price-asc" | "price-desc">("")
   const [query, setQuery] = useState("")
   const [debouncedQuery, setDebouncedQuery] = useState("")
   const [products, setProducts] = useState(initialProducts)
@@ -41,8 +42,9 @@ export function CardsGrid({
       query: debouncedQuery,
       gradeMin: range[0],
       gradeMax: range[1],
+      sort: sort || undefined,
     }),
-    [debouncedQuery, range],
+    [debouncedQuery, range, sort],
   )
 
   useEffect(() => {
@@ -99,8 +101,8 @@ export function CardsGrid({
 
   return (
     <>
-      <div className="mb-10 grid grid-cols-1 items-end gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        <div>
+      <div className="mb-10 flex flex-wrap items-end gap-x-8 gap-y-6">
+        <div className="w-full sm:w-56">
           <label
             htmlFor="card-search"
             className="mb-2 block text-base font-medium"
@@ -131,7 +133,7 @@ export function CardsGrid({
             <p className="mt-1 text-xs text-ink/50">Keep typing…</p>
           )}
         </div>
-        <div>
+        <div className="w-full sm:w-56">
           <div className="mb-2 text-base font-medium">Grade</div>
           <Slider.Root
             value={range}
@@ -158,6 +160,26 @@ export function CardsGrid({
               </Slider.Track>
             </Slider.Control>
           </Slider.Root>
+        </div>
+        <div className="w-full sm:w-56">
+          <label
+            htmlFor="card-sort"
+            className="mb-2 block text-base font-medium"
+          >
+            Sort
+          </label>
+          <select
+            id="card-sort"
+            value={sort}
+            onChange={(e) =>
+              setSort(e.target.value as "" | "price-asc" | "price-desc")
+            }
+            className="w-full border-b border-ink/20 bg-transparent pb-1 text-sm focus:border-ink focus:outline-none"
+          >
+            <option value="">Featured</option>
+            <option value="price-asc">Price low to high</option>
+            <option value="price-desc">Price high to low</option>
+          </select>
         </div>
       </div>
 
