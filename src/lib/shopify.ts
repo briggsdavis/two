@@ -6,9 +6,7 @@ const domain = process.env.SHOPIFY_STORE_DOMAIN
 const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN
 
 if (!domain || !token) {
-  throw new Error(
-    "Missing SHOPIFY_STORE_DOMAIN or SHOPIFY_STOREFRONT_ACCESS_TOKEN",
-  )
+  throw new Error("Missing SHOPIFY_STORE_DOMAIN or SHOPIFY_STOREFRONT_ACCESS_TOKEN")
 }
 
 const shopify = createStorefrontApiClient({
@@ -177,9 +175,7 @@ export async function getProductsPage({
   )
 }
 
-export async function getProduct(
-  handle: string,
-): Promise<ProductDetail | null> {
+export async function getProduct(handle: string): Promise<ProductDetail | null> {
   const { data, errors } = await shopify.request<{
     product: ProductDetail | null
   }>(PRODUCT_DETAIL_QUERY, { variables: { handle } })
@@ -272,11 +268,7 @@ export async function cartGet(cartId: string): Promise<Cart | null> {
   return data?.cart ?? null
 }
 
-export async function cartLinesAdd(
-  cartId: string,
-  variantId: string,
-  quantity = 1,
-) {
+export async function cartLinesAdd(cartId: string, variantId: string, quantity = 1) {
   const { data, errors } = await shopify.request<{
     cartLinesAdd: { cart: Cart }
   }>(
@@ -297,11 +289,7 @@ export async function cartLinesAdd(
   return data!.cartLinesAdd.cart
 }
 
-export async function cartLinesUpdate(
-  cartId: string,
-  lineId: string,
-  quantity: number,
-) {
+export async function cartLinesUpdate(cartId: string, lineId: string, quantity: number) {
   const { data, errors } = await shopify.request<{
     cartLinesUpdate: { cart: Cart }
   }>(

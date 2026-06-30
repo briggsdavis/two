@@ -24,9 +24,7 @@ export default function GlobalError({
           textAlign: "center",
         }}
       >
-        <h1 style={{ fontSize: "2rem", fontWeight: 600 }}>
-          Something went wrong
-        </h1>
+        <h1 style={{ fontSize: "2rem", fontWeight: 600 }}>Something went wrong</h1>
         <p style={{ marginTop: "1rem", color: "#555" }}>
           A fatal error occurred. Please try again.
         </p>

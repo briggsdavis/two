@@ -9,14 +9,12 @@ export function SiteFooter() {
             Two O&apos;Clock Trading
           </h3>
           <p className="text-sm text-ink/70">
-            A small shop for collectors of singular cards. Carefully sourced,
-            individually graded, shipped with care.
+            A small shop for collectors of singular cards. Carefully sourced, individually graded,
+            shipped with care.
           </p>
         </div>
         <div>
-          <h3 className="mb-3 text-sm font-semibold tracking-wide uppercase">
-            Shop
-          </h3>
+          <h3 className="mb-3 text-sm font-semibold tracking-wide uppercase">Shop</h3>
           <ul className="flex flex-col gap-2 text-sm text-ink/70">
             <li>
               <Link href="/cards">All cards</Link>
@@ -27,9 +25,7 @@ export function SiteFooter() {
           </ul>
         </div>
         <div>
-          <h3 className="mb-3 text-sm font-semibold tracking-wide uppercase">
-            Company
-          </h3>
+          <h3 className="mb-3 text-sm font-semibold tracking-wide uppercase">Company</h3>
           <ul className="flex flex-col gap-2 text-sm text-ink/70">
             <li>
               <Link href="/about">About</Link>

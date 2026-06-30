@@ -103,10 +103,7 @@ export function CardsGrid({
     <>
       <div className="mb-10 flex flex-wrap items-end gap-x-8 gap-y-6">
         <div className="w-full sm:w-56">
-          <label
-            htmlFor="card-search"
-            className="mb-2 block text-base font-medium"
-          >
+          <label htmlFor="card-search" className="mb-2 block text-base font-medium">
             Search
           </label>
           <div className="relative flex items-center border-b border-ink/20 focus-within:border-ink">
@@ -129,9 +126,7 @@ export function CardsGrid({
               </button>
             )}
           </div>
-          {query.trim().length === 1 && (
-            <p className="mt-1 text-xs text-ink/50">Keep typing…</p>
-          )}
+          {query.trim().length === 1 && <p className="mt-1 text-xs text-ink/50">Keep typing…</p>}
         </div>
         <div className="w-full sm:w-56">
           <div className="mb-2 text-base font-medium">Grade</div>
@@ -162,18 +157,13 @@ export function CardsGrid({
           </Slider.Root>
         </div>
         <div className="w-full sm:w-56">
-          <label
-            htmlFor="card-sort"
-            className="mb-2 block text-base font-medium"
-          >
+          <label htmlFor="card-sort" className="mb-2 block text-base font-medium">
             Sort
           </label>
           <select
             id="card-sort"
             value={sort}
-            onChange={(e) =>
-              setSort(e.target.value as "" | "price-asc" | "price-desc")
-            }
+            onChange={(e) => setSort(e.target.value as "" | "price-asc" | "price-desc")}
             className="w-full border-b border-ink/20 bg-transparent pb-1 text-sm focus:border-ink focus:outline-none"
           >
             <option value="">Featured</option>
@@ -211,9 +201,7 @@ export function CardsGrid({
                   {formatMoney(p.priceRange.minVariantPrice)}
                 </span>
               </div>
-              {!p.availableForSale && (
-                <span className="text-xs text-red-600">Sold out</span>
-              )}
+              {!p.availableForSale && <span className="text-xs text-red-600">Sold out</span>}
             </Link>
           </li>
         ))}
@@ -222,10 +210,7 @@ export function CardsGrid({
         <p className="py-12 text-center text-sm text-ink/50">No cards match.</p>
       )}
       {hasNextPage && (
-        <div
-          ref={sentinelRef}
-          className="mt-8 py-8 text-center text-sm text-ink/50"
-        >
+        <div ref={sentinelRef} className="mt-8 py-8 text-center text-sm text-ink/50">
           {loading ? "Loading…" : ""}
         </div>
       )}

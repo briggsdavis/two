@@ -33,9 +33,7 @@ export default async function Home() {
 
       <section className="mx-auto max-w-6xl px-6 pb-24">
         <div className="mb-8 flex items-baseline justify-between gap-6 border-b border-ink/15 pb-4">
-          <h2 className="font-display text-3xl tracking-tight italic">
-            Latest arrivals
-          </h2>
+          <h2 className="font-display text-3xl tracking-tight italic">Latest arrivals</h2>
           <Link
             href="/cards"
             className="text-sm text-ink/70 underline-offset-4 hover:text-ink hover:underline"
@@ -88,16 +86,13 @@ export default async function Home() {
           className="group flex flex-col justify-between rounded-2xl border border-ink/15 p-8 transition-colors hover:border-ink/40"
         >
           <div>
-            <p className="mb-3 text-xs tracking-[0.2em] text-ink/60 uppercase">
-              About
-            </p>
+            <p className="mb-3 text-xs tracking-[0.2em] text-ink/60 uppercase">About</p>
             <h3 className="font-display text-3xl tracking-tight">
-              A shop run <span className="italic">at two o&apos;clock</span>,
-              the quiet hour.
+              A shop run <span className="italic">at two o&apos;clock</span>, the quiet hour.
             </h3>
             <p className="mt-4 max-w-md text-ink/70">
-              Cards are sourced one at a time, graded, and listed only when
-              they&apos;re worth our shelf space.
+              Cards are sourced one at a time, graded, and listed only when they&apos;re worth our
+              shelf space.
             </p>
           </div>
           <span className="mt-8 inline-flex items-center gap-2 text-sm text-ink underline-offset-4 group-hover:underline">
@@ -114,15 +109,13 @@ export default async function Home() {
           className="group flex flex-col justify-between rounded-2xl border border-ink/15 p-8 transition-colors hover:border-ink/40"
         >
           <div>
-            <p className="mb-3 text-xs tracking-[0.2em] text-ink/60 uppercase">
-              Contact
-            </p>
+            <p className="mb-3 text-xs tracking-[0.2em] text-ink/60 uppercase">Contact</p>
             <h3 className="font-display text-3xl tracking-tight">
               Looking for something <span className="italic">specific?</span>
             </h3>
             <p className="mt-4 max-w-md text-ink/70">
-              Want-lists, consignments, or a card you&apos;d like us to hunt
-              down. Send a note and we&apos;ll write back.
+              Want-lists, consignments, or a card you&apos;d like us to hunt down. Send a note and
+              we&apos;ll write back.
             </p>
           </div>
           <span className="mt-8 inline-flex items-center gap-2 text-sm text-ink underline-offset-4 group-hover:underline">

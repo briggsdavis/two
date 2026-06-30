@@ -26,8 +26,7 @@ export async function generateMetadata({
 
   return {
     title: product.title,
-    description:
-      description || `${product.title} — available at Two O'Clock Trading.`,
+    description: description || `${product.title} — available at Two O'Clock Trading.`,
     alternates: { canonical: url },
     openGraph: {
       type: "website",
@@ -47,11 +46,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function ProductPage({
-  params,
-}: {
-  params: Promise<{ handle: string }>
-}) {
+export default async function ProductPage({ params }: { params: Promise<{ handle: string }> }) {
   const { handle } = await params
   const product = await getProduct(handle)
   if (!product) notFound()
@@ -70,18 +65,12 @@ export default async function ProductPage({
         <ProductGallery images={product.images.nodes} title={product.title} />
 
         <div>
-          <h1 className="font-display text-4xl tracking-tight">
-            {product.title}
-          </h1>
+          <h1 className="font-display text-4xl tracking-tight">{product.title}</h1>
 
           {(product.gradingCompany || product.grade) && (
             <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-ink/20 px-3 py-1 text-xs font-semibold tracking-wider uppercase">
-              {product.gradingCompany && (
-                <span>{product.gradingCompany.value}</span>
-              )}
-              {product.gradingCompany && product.grade && (
-                <span className="text-ink/30">/</span>
-              )}
+              {product.gradingCompany && <span>{product.gradingCompany.value}</span>}
+              {product.gradingCompany && product.grade && <span className="text-ink/30">/</span>}
               {product.grade && <span>Grade {product.grade.value}</span>}
             </div>
           )}
@@ -96,9 +85,7 @@ export default async function ProductPage({
                 {v && !v.availableForSale ? (
                   <p className="mt-2 text-sm text-red-700">Sold out</p>
                 ) : v?.quantityAvailable != null ? (
-                  <p className="mt-2 text-sm text-ink/60">
-                    {v.quantityAvailable} in stock
-                  </p>
+                  <p className="mt-2 text-sm text-ink/60">{v.quantityAvailable} in stock</p>
                 ) : null}
               </>
             )

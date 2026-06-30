@@ -4,8 +4,7 @@ import { getProductsPage } from "~/lib/shopify"
 
 export const metadata: Metadata = {
   title: "Cards",
-  description:
-    "Browse the current collection of graded cards available at Two O'Clock.",
+  description: "Browse the current collection of graded cards available at Two O'Clock.",
   alternates: { canonical: "/cards" },
   openGraph: { title: "Cards", url: "/cards" },
 }

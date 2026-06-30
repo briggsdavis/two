@@ -8,8 +8,8 @@ export default function NotFound() {
         We couldn&apos;t find <span className="italic">that one.</span>
       </h1>
       <p className="mt-6 text-lg text-ink/70">
-        The card or page you&apos;re after may have sold, moved, or never
-        existed. Have a look at what&apos;s in stock.
+        The card or page you&apos;re after may have sold, moved, or never existed. Have a look at
+        what&apos;s in stock.
       </p>
       <div className="mt-10 flex flex-wrap justify-center gap-4">
         <Link

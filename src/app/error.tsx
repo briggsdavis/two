@@ -16,20 +16,12 @@ export default function Error({
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-24 text-center">
-      <p className="mb-6 text-xs tracking-[0.2em] text-ink/60 uppercase">
-        Something went wrong
-      </p>
+      <p className="mb-6 text-xs tracking-[0.2em] text-ink/60 uppercase">Something went wrong</p>
       <h1 className="font-display text-5xl leading-[1.05] tracking-tight md:text-6xl">
         A hiccup on <span className="italic">our end.</span>
       </h1>
-      <p className="mt-6 text-lg text-ink/70">
-        Try again — if it happens twice, let us know.
-      </p>
-      {error.digest && (
-        <p className="mt-2 font-mono text-xs text-ink/40">
-          ref: {error.digest}
-        </p>
-      )}
+      <p className="mt-6 text-lg text-ink/70">Try again — if it happens twice, let us know.</p>
+      {error.digest && <p className="mt-2 font-mono text-xs text-ink/40">ref: {error.digest}</p>}
       <div className="mt-10 flex flex-wrap justify-center gap-4">
         <button
           onClick={() => unstable_retry()}

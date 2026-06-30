@@ -6,13 +6,7 @@ import { useEffect, useState } from "react"
 
 type GalleryImage = { url: string; altText: string | null }
 
-export function ProductGallery({
-  images,
-  title,
-}: {
-  images: GalleryImage[]
-  title: string
-}) {
+export function ProductGallery({ images, title }: { images: GalleryImage[]; title: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const open = openIndex !== null
 

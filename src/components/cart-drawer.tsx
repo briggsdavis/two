@@ -97,17 +97,13 @@ export function CartDrawer() {
                       >
                         {line.merchandise.product.title}
                       </Link>
-                      <span className="text-sm">
-                        {formatMoney(line.cost.totalAmount)}
-                      </span>
+                      <span className="text-sm">{formatMoney(line.cost.totalAmount)}</span>
                     </div>
                     <div className="mt-auto flex items-center justify-between">
                       <div className="flex items-center rounded-full border border-ink/20">
                         <button
                           type="button"
-                          onClick={() =>
-                            update(line.id, Math.max(0, line.quantity - 1))
-                          }
+                          onClick={() => update(line.id, Math.max(0, line.quantity - 1))}
                           disabled={isPending}
                           aria-label="Decrease quantity"
                           className="p-1.5 hover:bg-ink/5 disabled:opacity-40"
@@ -142,16 +138,12 @@ export function CartDrawer() {
             </ul>
             <footer className="border-t border-ink/15 p-6">
               <div className="mb-4 flex items-baseline justify-between">
-                <span className="text-sm tracking-wider text-ink/60 uppercase">
-                  Subtotal
-                </span>
+                <span className="text-sm tracking-wider text-ink/60 uppercase">Subtotal</span>
                 <span className="text-lg font-medium">
                   {cart && formatMoney(cart.cost.subtotalAmount)}
                 </span>
               </div>
-              <p className="mb-4 text-xs text-ink/60">
-                Shipping and taxes calculated at checkout.
-              </p>
+              <p className="mb-4 text-xs text-ink/60">Shipping and taxes calculated at checkout.</p>
               <a
                 href={cart?.checkoutUrl ?? "#"}
                 className="block w-full rounded-full bg-ink py-3 text-center text-sm font-medium text-cream hover:bg-ink/90"

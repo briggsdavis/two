@@ -31,12 +31,9 @@ export function Testimonials({ className = "" }: { className?: string }) {
       aria-label="Buyer testimonials"
     >
       <div className="mb-6 flex items-baseline justify-between gap-6 border-b border-ink/15 pb-4">
-        <h2 className="font-display text-3xl tracking-tight italic">
-          In buyers&apos; words
-        </h2>
+        <h2 className="font-display text-3xl tracking-tight italic">In buyers&apos; words</h2>
         <span className="text-xs tracking-[0.2em] text-ink/60 uppercase">
-          {String(index + 1).padStart(2, "0")} /{" "}
-          {String(quotes.length).padStart(2, "0")}
+          {String(index + 1).padStart(2, "0")} / {String(quotes.length).padStart(2, "0")}
         </span>
       </div>
 

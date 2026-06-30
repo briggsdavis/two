@@ -80,9 +80,7 @@ export function SiteNav() {
         }`}
       >
         <div className="flex items-center justify-between border-b border-ink/15 px-6 py-4">
-          <span className="font-display text-xl tracking-tight italic">
-            Menu
-          </span>
+          <span className="font-display text-xl tracking-tight italic">Menu</span>
           <button
             type="button"
             onClick={close}

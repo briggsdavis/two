@@ -45,11 +45,7 @@ const sans = Instrument_Sans({
   variable: "--font-instrument",
 })
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const cart = await getCart()
 
   return (

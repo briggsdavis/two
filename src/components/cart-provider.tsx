@@ -28,19 +28,16 @@ export function CartProvider({
   const [isOpen, setIsOpen] = useState(false)
   const [isPending, setIsPending] = useState(false)
 
-  const wrap = useCallback(
-    async (fn: () => Promise<Cart | null>, opens = false) => {
-      setIsPending(true)
-      try {
-        const next = await fn()
-        setCart(next)
-        if (opens) setIsOpen(true)
-      } finally {
-        setIsPending(false)
-      }
-    },
-    [],
-  )
+  const wrap = useCallback(async (fn: () => Promise<Cart | null>, opens = false) => {
+    setIsPending(true)
+    try {
+      const next = await fn()
+      setCart(next)
+      if (opens) setIsOpen(true)
+    } finally {
+      setIsPending(false)
+    }
+  }, [])
 
   const value: CartContextValue = {
     cart,
