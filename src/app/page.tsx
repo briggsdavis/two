@@ -1,10 +1,13 @@
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 import { formatMoney } from "~/lib/money"
 import { getProducts } from "~/lib/shopify"
 
 export default async function Home() {
+  redirect("/cards")
+
   const products = await getProducts(4)
 
   return (
