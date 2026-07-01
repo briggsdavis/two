@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 import { AddToCartButton } from "~/components/add-to-cart-button"
 import { ProductGallery } from "~/components/product-gallery"
 import { formatMoney } from "~/lib/money"
+import { absoluteUrl, jsonLd, productSeoDescription, siteName } from "~/lib/seo"
 import { getProduct } from "~/lib/shopify"
 
 export async function generateMetadata({
@@ -14,19 +15,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { handle } = await params
   const product = await getProduct(handle)
-  if (!product) return { title: "Not found", robots: { index: false } }
+  if (!product) return { title: "Not found", robots: { index: false, follow: false } }
 
-  const description = product.descriptionHtml
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, 200)
+  const description = productSeoDescription({
+    product,
+    descriptionHtml: product.descriptionHtml,
+    price: product.variants.nodes[0]?.price ?? product.priceRange.minVariantPrice,
+  })
   const image = product.featuredImage?.url
   const url = `/products/${product.handle}`
 
   return {
     title: product.title,
-    description: description || `${product.title} — available at Two O'Clock Trading.`,
+    description,
     alternates: { canonical: url },
     openGraph: {
       type: "website",
@@ -50,9 +51,54 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
   const { handle } = await params
   const product = await getProduct(handle)
   if (!product) notFound()
+  const variant = product.variants.nodes[0]
+  const price = variant?.price ?? product.priceRange.minVariantPrice
+  const description = productSeoDescription({
+    product,
+    descriptionHtml: product.descriptionHtml,
+    price,
+  })
+  const productUrl = absoluteUrl(`/products/${product.handle}`)
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    image: product.images.nodes.map((image) => image.url),
+    description,
+    url: productUrl,
+    offers: {
+      "@type": "Offer",
+      url: productUrl,
+      price: price.amount,
+      priceCurrency: price.currencyCode,
+      availability: product.availableForSale
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+      seller: {
+        "@type": "Organization",
+        name: siteName,
+      },
+    },
+    additionalProperty: [
+      product.gradingCompany && {
+        "@type": "PropertyValue",
+        name: "Grading company",
+        value: product.gradingCompany.value,
+      },
+      product.grade && {
+        "@type": "PropertyValue",
+        name: "Grade",
+        value: product.grade.value,
+      },
+    ].filter(Boolean),
+  }
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(productJsonLd) }}
+      />
       <Link
         href="/cards"
         className="mb-6 inline-flex items-center gap-1.5 text-sm text-ink/70 hover:text-ink"
@@ -76,16 +122,13 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
           )}
 
           {(() => {
-            const v = product.variants.nodes[0]
             return (
               <>
-                <p className="mt-4 text-2xl font-medium">
-                  {formatMoney(v?.price ?? product.priceRange.minVariantPrice)}
-                </p>
-                {v && !v.availableForSale ? (
+                <p className="mt-4 text-2xl font-medium">{formatMoney(price)}</p>
+                {variant && !variant.availableForSale ? (
                   <p className="mt-2 text-sm text-red-700">Sold out</p>
-                ) : v?.quantityAvailable != null ? (
-                  <p className="mt-2 text-sm text-ink/60">{v.quantityAvailable} in stock</p>
+                ) : variant?.quantityAvailable != null ? (
+                  <p className="mt-2 text-sm text-ink/60">{variant.quantityAvailable} in stock</p>
                 ) : null}
               </>
             )

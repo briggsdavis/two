@@ -6,12 +6,8 @@ import { CartProvider } from "~/components/cart-provider"
 import { SiteFooter } from "~/components/site-footer"
 import { SiteNav } from "~/components/site-nav"
 import { getCart } from "~/lib/cart"
+import { siteDescription, siteName, siteUrl } from "~/lib/seo"
 import "~/styles/styles.css"
-
-const siteUrl = "https://twooclocktrading.com"
-const siteName = "Two O'Clock Trading"
-const siteDescription =
-  "A small, deliberate collection of graded trading cards, sourced one at a time and listed only when they're worth our shelf space."
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -32,7 +28,6 @@ export const metadata: Metadata = {
     title: siteName,
     description: siteDescription,
   },
-  robots: { index: true, follow: true },
 }
 
 const display = Fraunces({

@@ -19,6 +19,7 @@ export type ProductListItem = {
   id: string
   handle: string
   title: string
+  updatedAt: string
   featuredImage: { url: string; altText: string | null } | null
   priceRange: { minVariantPrice: Money }
   availableForSale: boolean
@@ -47,6 +48,7 @@ const PRODUCT_FIELDS = `#graphql
     id
     handle
     title
+    updatedAt
     availableForSale
     featuredImage { url altText }
     priceRange { minVariantPrice { amount currencyCode } }
@@ -121,6 +123,20 @@ export type ProductFilters = {
 export async function getProducts(first = 24): Promise<ProductListItem[]> {
   const page = await getProductsPage({ first })
   return page.nodes
+}
+
+export async function getAllProducts(limit = 1000): Promise<ProductListItem[]> {
+  const products: ProductListItem[] = []
+  let after: string | undefined
+
+  while (products.length < limit) {
+    const page = await getProductsPage({ first: Math.min(250, limit - products.length), after })
+    products.push(...page.nodes)
+    if (!page.pageInfo.hasNextPage || !page.pageInfo.endCursor) break
+    after = page.pageInfo.endCursor
+  }
+
+  return products
 }
 
 type MetafieldFilter = {
