@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Fraunces, Instrument_Sans } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
 import { CartDrawer } from "~/components/cart-drawer"
 import { CartProvider } from "~/components/cart-provider"
 import { SiteFooter } from "~/components/site-footer"
@@ -51,6 +52,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
       <body className="flex min-h-screen flex-col font-sans">
+        <Analytics />
         <CartProvider initialCart={cart}>
           <SiteNav />
           <div className="flex-1">{children}</div>

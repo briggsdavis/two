@@ -26,10 +26,10 @@ export default function ContactPage() {
           <dt className="text-xs tracking-[0.2em] text-ink/60 uppercase">Email</dt>
           <dd className="mt-2 font-display text-2xl tracking-tight">
             <a
-              href="mailto:hello@twooclocktrading.com"
+              href="mailto:dunkie26@gmail.com"
               className="underline-offset-4 hover:underline"
             >
-              hello@twooclocktrading.com
+              dunkie26@gmail.com
             </a>
           </dd>
         </div>
